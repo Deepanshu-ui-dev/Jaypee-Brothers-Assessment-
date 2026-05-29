@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/extensions/num_extensions.dart';
+import '../../core/utils/breakpoints.dart';
 import '../../data/services/export_service.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/biometric_provider.dart';
@@ -26,9 +27,12 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: context.colors.pageBg,
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          children: [
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: context.isDesktop ? 720 : double.infinity),
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+              children: [
             // Header
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -281,6 +285,8 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 120),
           ],
+            ),
+          ),
         ),
       ),
     );

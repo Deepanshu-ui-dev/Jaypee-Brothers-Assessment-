@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/extensions/date_extensions.dart';
+import '../../core/utils/breakpoints.dart';
 import '../../data/models/category_model.dart';
 import '../../data/repositories/transaction_repository.dart';
 import '../../providers/auth_provider.dart';
@@ -75,13 +76,16 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
           child: Divider(height: 0.5, color: context.colors.divider),
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 12),
-          const FilterChipsBar(),
-          const SizedBox(height: 12),
-          Expanded(
-            child: grouped.when(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: context.isDesktop ? 800 : double.infinity),
+          child: Column(
+            children: [
+              const SizedBox(height: 12),
+              const FilterChipsBar(),
+              const SizedBox(height: 12),
+              Expanded(
+                child: grouped.when(
               data: (groups) {
                 if (groups.isEmpty) {
                   return Center(
@@ -175,6 +179,8 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
             ),
           ),
         ],
+          ),
+        ),
       ),
     );
   }
