@@ -26,12 +26,48 @@ class CategoryModel {
     return CategoryModel(
       id: doc.id,
       name: data['name'] as String,
-      icon: IconData(data['iconCodePoint'] as int, fontFamily: 'MaterialIcons'),
+      icon: _getIconData(data['iconCodePoint'] as int),
       color: Color(data['colorValue'] as int),
       bgColor: Color(data['bgColorValue'] as int),
       type: data['type'] as String,
       isDefault: data['isDefault'] as bool? ?? false,
     );
+  }
+
+  static IconData _getIconData(int codePoint) {
+    const icons = <IconData>[
+      Icons.restaurant_rounded,
+      Icons.directions_car_rounded,
+      Icons.shopping_bag_rounded,
+      Icons.movie_rounded,
+      Icons.favorite_rounded,
+      Icons.school_rounded,
+      Icons.bolt_rounded,
+      Icons.home_rounded,
+      Icons.spa_rounded,
+      Icons.more_horiz_rounded,
+      Icons.account_balance_wallet_rounded,
+      Icons.laptop_rounded,
+      Icons.trending_up_rounded,
+      Icons.card_giftcard_rounded,
+      Icons.refresh_rounded,
+      Icons.stars_rounded,
+      Icons.fastfood_rounded,
+      Icons.medical_services_rounded,
+      Icons.flight_takeoff_rounded,
+      Icons.pets_rounded,
+      Icons.sports_esports_rounded,
+      Icons.work_rounded,
+      Icons.fitness_center_rounded,
+      Icons.local_cafe_rounded,
+      Icons.subscriptions_rounded,
+      Icons.child_care_rounded,
+      Icons.build_rounded,
+    ];
+    for (final icon in icons) {
+      if (icon.codePoint == codePoint) return icon;
+    }
+    return Icons.more_horiz_rounded;
   }
 
   Map<String, dynamic> toFirestore() {
